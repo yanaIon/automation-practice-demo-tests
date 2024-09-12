@@ -1,9 +1,11 @@
+package tests;
+
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.not;
+import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -19,7 +21,8 @@ public class PracticeTextBoxTests {
     @Test
     public void toolsQaForm () {
         open("/automation-practice-form");
-
+        //Проверяем, что форма открылась
+        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
         // Удалить элементы рекламы
         Selenide.executeJavaScript("$('#fixedban').remove()");
         Selenide.executeJavaScript("$('footer').remove()");
@@ -30,8 +33,8 @@ public class PracticeTextBoxTests {
         $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue("9123456789");
         $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-dropdown-container").$(byText("July")).click();
-        $(".react-datepicker__year-dropdown-container").$(byText("1992")).click();
+        $(".react-datepicker__month-select").selectOption("July"); //исп, если элем имеет тег select, option
+        $(".react-datepicker__year-select").selectOption("1992");
         $(".react-datepicker__month-container").$(byText("25")).click();
         $("#subjectsInput").setValue("English").pressEnter();
         $("#hobbies-checkbox-3").parent().$(byText("Music")).click();
@@ -42,6 +45,8 @@ public class PracticeTextBoxTests {
         $("#city").click();
         $("#stateCity-wrapper").$(byText("Agra")).click();
         $("#submit").click();
+
+        $(".modal-dialog").should(appear);
         $(".modal-open").shouldHave(text("Thanks for submitting the form"));
         $(".modal-body").shouldHave(text("Ivan Ivanov"));
         $(".modal-body").shouldHave(text("IvanovIvan@mail.ru"));

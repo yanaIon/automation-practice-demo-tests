@@ -7,7 +7,6 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 
 public class SelenideRepositorySearch {
-
     @Test
     void shouldFindSelenideRepositoryAtTheTop() {
         open("https://github.com/");

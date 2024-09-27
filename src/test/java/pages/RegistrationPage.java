@@ -21,7 +21,7 @@ public class RegistrationPage {
             genterWrapper = $("#genterWrapper"),
             userNumber = $("#userNumber"),
             subjects =  $("#subjectsInput"),
-            hobbies = $("#hobbies-checkbox-3"),
+            hobbies = $("#hobbiesWrapper"),
             pictures = $("#uploadPicture"),
             address = $("#currentAddress"),
             state = $("#state"),
@@ -67,6 +67,7 @@ public class RegistrationPage {
         return this;
     }
 
+
     public RegistrationPage setPhone(String value) {
         userNumber.setValue(value);
 
@@ -89,10 +90,11 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setHobbies(String value) {
-        hobbies.parent().$(byText(value)).click();
+        hobbies.$(byText(value)).click();
 
         return this;
     }
+
 
     public RegistrationPage uploadPictures (String value) {
         pictures.uploadFromClasspath(value);
@@ -117,10 +119,8 @@ public class RegistrationPage {
 
         return this;
     }
-    public RegistrationPage setSubmit () {
+    public void setSubmit () {
         submit.click();
-
-        return this;
     }
 
     public RegistrationPage verifyModalAppears() {

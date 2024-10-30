@@ -26,7 +26,7 @@ public class SimpleLocaleWebTest {
     }
    @MethodSource()
     // 0 -порядковый номер аргумента в searchResultsShouldBeGreaterThan10ForWoman
-    @ParameterizedTest (name = "Для локали {0} на сайте https://www.lcwaikiki.ge/ должен отоьбражаться список кнопок {1}")
+    @ParameterizedTest (name = "Для локали {0} на сайте https://www.lcwaikiki.ge/ должен отображаться список кнопок {1}")
     @Tag("BLOCKER")
     void siteShouldContainsAllOfGivenButtonsForGivenLocale(Locale locale, List<String> expectedButtons) {
         Selenide.open("https://www.lcwaikiki.ge/ ");

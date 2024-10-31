@@ -12,7 +12,13 @@ dependencies {
             'com.github.javafaker:javafaker:1.0.2',
             "org.junit.jupiter:junit-jupiter:5.9.2",
             "org.slf4j:slf4j-simple:2.0.6",
-            "io.github.bonigarcia:webdrivermanager:5.4.0"
+            "io.github.bonigarcia:webdrivermanager:5.4.0",
+            "com.codeborne:pdf-test:1.5.0",
+            "org.apache.poi:poi:5.2.3",
+            "org.apache.poi:poi-ooxml:5.2.3",
+            "org.apache.xmlbeans:xmlbeans:5.0.0",
+            "com.codeborne:xls-test:1.4.3",
+            "com.opencsv:opencsv:5.7.1",
     )
 }
 

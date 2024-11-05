@@ -19,6 +19,7 @@ dependencies {
             "org.apache.xmlbeans:xmlbeans:5.0.0",
             "com.codeborne:xls-test:1.4.3",
             "com.opencsv:opencsv:5.7.1",
+            "com.fasterxml.jackson.core:jackson-databind:2.13.2"
     )
 }
 

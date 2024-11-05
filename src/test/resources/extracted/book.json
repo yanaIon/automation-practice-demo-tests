@@ -1,0 +1,20 @@
+{
+  "title": "Java Programming Guide",
+  "author": "John Doe",
+  "year": 2023,
+  "publisher": "Tech Books Publishing",
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "title": "Introduction to Java"
+    },
+    {
+      "chapterNumber": 2,
+      "title": "Object-Oriented Programming"
+    },
+    {
+      "chapterNumber": 3,
+      "title": "Advanced Topics"
+    }
+  ]
+}

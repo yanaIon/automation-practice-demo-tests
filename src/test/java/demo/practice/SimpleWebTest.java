@@ -28,7 +28,7 @@ public class SimpleWebTest {
     @Tag("BLOCKER")
     void searchResultsShouldBeGreaterThan10ForWoman(String testData) {
         $("#searchInput").setValue(testData).pressEnter();
-        $$(".product-card").shouldHave(CollectionCondition.sizeGreaterThanOrEqual(10));
+        $$(".product-card").filter(Condition.visible).shouldHave(CollectionCondition.sizeGreaterThanOrEqual(10));
     }
 
 
@@ -41,7 +41,7 @@ public class SimpleWebTest {
     @Tag("BLOCKER")
     void firstSearchResultsShouldContainExpectedText(String testData, String expectedText) {
         $("#searchInput").setValue(testData).pressEnter();
-        $$(".product-card").first().find(".product-card__name").shouldHave(Condition.text(expectedText));
+        $$(".product-card").filter(Condition.visible).first().find(".product-card__name").shouldHave(Condition.text(expectedText));
     }
 
 }

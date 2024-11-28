@@ -41,6 +41,64 @@
 #          PUBLISH_BRANCH: gh-pages
 #          PUBLISH_DIR: allure-history
 
+#name: Test
+#
+#on:
+#  workflow_dispatch
+#
+#jobs:
+#  test:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      # 1. Checkout репозиторий
+#      - name: Checkout Repository
+#        uses: actions/checkout@v3
+#
+#      # 2. Настройка Java
+#      - name: Setup Java
+#        uses: actions/setup-java@v3
+#        with:
+#          distribution: 'zulu'
+#          java-version: '17'
+#
+#      # 3. Запуск Selenoid
+#      - name: Start Selenoid
+#        uses: Xotabu4/selenoid-github-action@v2
+#
+#      # 4. Запуск тестов
+#      - name: Run Tests
+#        run: ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub --info
+#        continue-on-error: true
+#
+#      # 5. Проверка содержимого папки allure-results (после тестов)
+#      - name: Check Allure Results
+#        run: ls -la build/allure-results
+#
+#      # 6. Установка Allure CLI
+#      - name: Install Allure
+#        run: |
+#          curl -o allure.zip -L https://github.com/allure-framework/allure2/releases/download/2.20.0/allure-2.20.0.zip
+#          unzip allure.zip -d allure-cli
+#          export PATH=$PATH:${{ github.workspace }}/allure-cli/bin
+#
+#      # 7. Генерация Allure-отчета
+#      - name: Generate Allure Report
+#        run: allure generate build/allure-results --clean -o allure-report
+#
+#      # 8. Проверка содержимого папки allure-report (после генерации)
+#      - name: Check Allure Report
+#        run: ls -la allure-report
+#
+#      # 9. Публикация Allure-отчета
+#      - name: Deploy Allure Report to GitHub Pages
+#        uses: peaceiris/actions-gh-pages@v2
+#        env:
+#          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          publish_branch: gh-pages
+#          publish_dir: allure-report
+
 name: Test
 
 on:
@@ -71,30 +129,50 @@ jobs:
         run: ./gradlew clean test -Dselenide.remote=http://localhost:4444/wd/hub --info
         continue-on-error: true
 
-      # 5. Проверка содержимого папки allure-results (после тестов)
+      # 5. Проверка содержимого allure-results (после тестов)
       - name: Check Allure Results
         run: ls -la build/allure-results
 
       # 6. Установка Allure CLI
-      - name: Install Allure
+      - name: Install Allure CLI
         run: |
           curl -o allure.zip -L https://github.com/allure-framework/allure2/releases/download/2.20.0/allure-2.20.0.zip
           unzip allure.zip -d allure-cli
-          export PATH=$PATH:${{ github.workspace }}/allure-cli/bin
+          echo "PATH=$(pwd)/allure-cli/bin:\$PATH" >> $GITHUB_ENV
 
-      # 7. Генерация Allure-отчета
+      # 7. Проверка установки Allure CLI
+      - name: Check Allure CLI Installation
+        run: allure --version
+
+      # 8. Генерация Allure-отчета
       - name: Generate Allure Report
         run: allure generate build/allure-results --clean -o allure-report
 
-      # 8. Проверка содержимого папки allure-report (после генерации)
+      # 9. Проверка содержимого allure-report (после генерации)
       - name: Check Allure Report
         run: ls -la allure-report
 
-      # 9. Публикация Allure-отчета
+      # 10. Checkout ветки gh-pages
+      - name: Checkout gh-pages
+        uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      # 11. Удаление старого содержимого из gh-pages
+      - name: Clean gh-pages before publish
+        run: rm -rf *
+        working-directory: gh-pages
+
+      # 12. Копирование отчета в gh-pages
+      - name: Copy Report to gh-pages
+        run: cp -R allure-report/* gh-pages/
+
+      # 13. Публикация отчета на GitHub Pages
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v2
         env:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           publish_branch: gh-pages
-          publish_dir: allure-report
+          publish_dir: gh-pages

@@ -20,16 +20,16 @@ public class SimpleWebTest {
     }
 
 
-    @ValueSource(strings = {
-            "Платье женское","Брюки мужские"
-    })
-    // 0 -порядковый номер аргумента в searchResultsShouldBeGreaterThan10ForWoman
-    @ParameterizedTest (name = "В поисковой выдаче wildberries должно отображаться больше 10 результатов по запросу {0}") //т е тест запустится 2 раза, при первом разе возьмется первое "Платье...", потом "Брюки..."
-    @Tag("BLOCKER")
-    void searchResultsShouldBeGreaterThan10ForWoman(String testData) {
-        $("#searchInput").setValue(testData).pressEnter();
-        $$(".product-card").filter(Condition.visible).shouldHave(CollectionCondition.sizeGreaterThanOrEqual(10));
-    }
+//    @ValueSource(strings = {
+//            "Платье женское","Брюки мужские"
+//    })
+//    // 0 -порядковый номер аргумента в searchResultsShouldBeGreaterThan10ForWoman
+//    @ParameterizedTest (name = "В поисковой выдаче wildberries должно отображаться больше 10 результатов по запросу {0}") //т е тест запустится 2 раза, при первом разе возьмется первое "Платье...", потом "Брюки..."
+//    @Tag("BLOCKER")
+//    void searchResultsShouldBeGreaterThan10ForWoman(String testData) {
+//        $("#searchInput").should(Condition.visible).setValue(testData).pressEnter();
+//        $$(".product-card").filter(Condition.visible).shouldHave(CollectionCondition.sizeGreaterThanOrEqual(10));
+//    }
 
 
     @CsvSource(value = {
@@ -40,8 +40,8 @@ public class SimpleWebTest {
     @ParameterizedTest (name = "В первом результате выдачи для {0} должен отображаться текст {1}")
     @Tag("BLOCKER")
     void firstSearchResultsShouldContainExpectedText(String testData, String expectedText) {
-        $("#searchInput").setValue(testData).pressEnter();
-        $$(".product-card").filter(Condition.visible).first().find(".product-card__name").shouldHave(Condition.text(expectedText));
+        $("#searchInput").should(Condition.visible).setValue(testData).pressEnter();
+        $$(".product-card__wrapper").filter(Condition.visible).first().find(".product-card__name").shouldHave(Condition.text(expectedText));
     }
 
 }

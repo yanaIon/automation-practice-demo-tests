@@ -3,13 +3,22 @@ package demo.practice;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.junit.jupiter.api.Test;
+
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 
 public class CreditcalculatorWebStepTest {
     //такой подход больше подходит для переиспользования этих степов в других тестах
-
+    @Test
+    public void testCreditCalculator() {
+        openMainPage();
+        fillCreditDetails();
+        calculateCredit();
+        verifyResultFormIsVisible();
+        verifyMonthlyPaymentText();
+    }
     @Step("Открываем главную страницу кредитного калькулятора")
     public void openMainPage() {
         open("https://creditcalculator.pointschool.ru/");

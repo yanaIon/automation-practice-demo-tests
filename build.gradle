@@ -40,11 +40,24 @@ dependencies {
             "com.opencsv:opencsv:5.7.1",
             "com.fasterxml.jackson.core:jackson-databind:2.13.2",
             'io.qameta.allure:allure-selenide:2.19.0',
-            'org.aspectj:aspectjweaver:1.9.19'
+            'org.aspectj:aspectjweaver:1.9.19',
+            'io.rest-assured:rest-assured:5.3.0'
     )
 }
 
 test {
     useJUnitPlatform()
     systemProperties(System.getProperties())
+}
+
+task simple_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("simple")
+    }
+}
+
+task remote_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("remote")
+    }
 }

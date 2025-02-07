@@ -15,3 +15,6 @@ build/
 ### Logs ###
 *.log
 .DS_Store
+
+notifications/config.json
+notifications/draft.txt

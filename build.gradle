@@ -40,10 +40,11 @@ dependencies {
             "com.codeborne:xls-test:1.4.3",
             "com.opencsv:opencsv:5.7.1",
             "com.fasterxml.jackson.core:jackson-databind:2.13.2",
-            'io.qameta.allure:allure-selenide:2.19.0',
+            'io.qameta.allure:allure-selenide:2.19.0', //Позволяет добавлять скриншоты и HTML-страницы в отчёт Allure
             'org.aspectj:aspectjweaver:1.9.19',
-            'io.rest-assured:rest-assured:5.3.0',
+            'io.rest-assured:rest-assured:5.3.0', //Это основная библиотека Rest Assured для тестирования REST API. Не имеет встроенной интеграции с Allure
             'org.assertj:assertj-core:3.24.2',
+            'io.qameta.allure:allure-rest-assured:2.19.0' //Работает только в тестах API
     )
 }
 
